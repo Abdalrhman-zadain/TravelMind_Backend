@@ -1,0 +1,6 @@
+@New_TravelMind_HostAddress = http://localhost:5268
+
+GET {{New_TravelMind_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
