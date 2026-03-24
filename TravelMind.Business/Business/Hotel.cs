@@ -110,5 +110,15 @@ namespace TravelMind.Business.Business
             }
             return false;
         }
+        /// <summary>
+        /// Fetches hotels from the external API and saves them to the database.
+        /// </summary>
+        public static async Task FetchAndSaveFromExternalAsync()
+        {
+            var connectionString = DatabaseConfig.GetConnectionString();
+            var service = new TravelMind.DataAccess.Data.HotelService(connectionString);
+            var hotels = await service.FetchHotelsFromApiAsync();
+            await service.SaveHotelsToDatabaseAsync(hotels);
+        }
     }
 }

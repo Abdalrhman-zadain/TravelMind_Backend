@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelMind.Business.Business;
 using TravelMind.DataAccess.DTO;
+using TravelMind.DataAccess;
 
 namespace TravelMind.API.Controllers
 {
@@ -9,6 +10,20 @@ namespace TravelMind.API.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
+        // POST /api/hotels/fetch-external
+        [HttpPost("fetch-external")]
+        public async Task<IActionResult> FetchAndSaveFromExternal()
+        {
+            try
+            {
+                await Hotel.FetchAndSaveFromExternalAsync();
+                return Ok("Hotels fetched and saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
+        }
         // GET /api/hotels
         [HttpGet]
         public ActionResult<List<HotelDTO>> GetAll()
